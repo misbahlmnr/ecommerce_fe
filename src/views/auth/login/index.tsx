@@ -41,7 +41,7 @@ const LoginForm = () => {
   return (
     <Box
       p={6}
-      width={"500px"}
+      width={{ base: "90%", md: "500px" }}
       borderRadius={"md"}
       bgColor={useColorModeValue("white", "gray.800")}
     >
