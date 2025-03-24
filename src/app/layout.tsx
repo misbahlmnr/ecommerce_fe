@@ -1,4 +1,4 @@
-import { Provider } from "@/components/ui/provider";
+import { Provider } from "@/shared/ui/provider";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

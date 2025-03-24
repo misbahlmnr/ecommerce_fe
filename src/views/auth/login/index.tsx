@@ -1,6 +1,6 @@
 "use client";
 
-import { useColorModeValue } from "@/components/ui/color-mode";
+import { useColorModeValue } from "@/shared/ui/color-mode";
 import {
   Box,
   Button,
