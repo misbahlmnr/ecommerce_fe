@@ -1,11 +1,14 @@
 "use client";
 
-import { Table as ChakraTable } from "@chakra-ui/react";
+import { Table as ChakraTable, IconButton } from "@chakra-ui/react";
 import {
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { LuTrash2 } from "react-icons/lu";
+import { MdOutlineEdit } from "react-icons/md";
+import { FaEye } from "react-icons/fa";
 import { Props } from "./Type";
 
 const Table = <T,>({ data, columns }: Props<T>) => {
@@ -34,19 +37,40 @@ const Table = <T,>({ data, columns }: Props<T>) => {
                 )}
               </ChakraTable.ColumnHeader>
             ))}
+            <ChakraTable.ColumnHeader
+              px={10}
+              color={"white"}
+              minWidth={"100px"}
+            >
+              Actions
+            </ChakraTable.ColumnHeader>
           </ChakraTable.Row>
         ))}
       </ChakraTable.Header>
       <ChakraTable.Body>
-        {table.getRowModel().rows.map((row) => (
-          <ChakraTable.Row key={row.id}>
-            {row.getVisibleCells().map((cell) => (
-              <ChakraTable.Cell key={cell.id} px={10}>
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+        {table.getRowModel().rows.map((row, idx) => {
+          const isOdd = idx % 2 === 0;
+          return (
+            <ChakraTable.Row key={row.id} bgColor={isOdd ? "gray.50" : "white"}>
+              {row.getVisibleCells().map((cell) => (
+                <ChakraTable.Cell key={cell.id} px={10}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </ChakraTable.Cell>
+              ))}
+              <ChakraTable.Cell px={10}>
+                <IconButton size="xs" variant="ghost" aria-label="open menu">
+                  <MdOutlineEdit />
+                </IconButton>
+                <IconButton size="xs" variant="ghost" aria-label="open menu">
+                  <FaEye />
+                </IconButton>
+                <IconButton size="xs" variant="ghost" aria-label="open menu">
+                  <LuTrash2 />
+                </IconButton>
               </ChakraTable.Cell>
-            ))}
-          </ChakraTable.Row>
-        ))}
+            </ChakraTable.Row>
+          );
+        })}
       </ChakraTable.Body>
     </ChakraTable.Root>
   );
