@@ -50,16 +50,20 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   return (
     <Box
       transition="3s ease"
-      bg={useColorModeValue("white", "gray.800")}
+      bg={"white"}
       borderRight="1px"
-      borderRightColor={useColorModeValue("gray.200", "gray.700")}
+      borderRightColor={"gray.500"}
       w={{ base: "full", md: 60 }}
       pos="fixed"
       h="full"
+      _dark={{
+        bg: "gray.700",
+        borderRightColor: "gray.50",
+      }}
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontWeight="bold">
+        <Text fontSize="2xl" fontWeight="bold" color={"purple.500"}>
           Ecommerce
         </Text>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
@@ -85,8 +89,8 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
         cursor="pointer"
         borderRadius="lg"
         _hover={{
-          bg: useColorModeValue("gray.100", "gray.700"),
-          color: useColorModeValue("gray.900", "gray.100"),
+          bg: useColorModeValue("purple.500", "purple.500"),
+          color: "white",
         }}
         {...rest}
       >
@@ -113,7 +117,6 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       px={{ base: 4, md: 4 }}
       height="20"
       alignItems="center"
-      bg={useColorModeValue("white", "gray.900")}
       borderBottomWidth="1px"
       borderBottomColor={useColorModeValue("gray.200", "gray.700")}
       justifyContent={{ base: "space-between", md: "flex-end" }}
@@ -132,6 +135,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         display={{ base: "flex", md: "none" }}
         fontSize="2xl"
         fontWeight="bold"
+        color={"purple.500"}
       >
         Ecommerce
       </Text>
@@ -159,7 +163,11 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                   alignItems="flex-start"
                 >
                   <Text fontSize="sm">Misbah</Text>
-                  <Text fontSize="xs" color="gray.600">
+                  <Text
+                    fontSize="xs"
+                    color="gray.600"
+                    _dark={{ color: "gray.100" }}
+                  >
                     Admin
                   </Text>
                 </VStack>
@@ -191,7 +199,7 @@ const DashboardTemplate = ({ children }: DashboardTemplateProps) => {
   const { open, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
+    <Box minH="100vh">
       <SidebarContent
         onClose={() => onClose}
         display={{ base: "none", md: "block" }}

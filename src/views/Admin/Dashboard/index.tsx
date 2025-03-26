@@ -77,7 +77,7 @@ const DashboardPage = () => {
         <Heading as="h1" fontSize="2xl">
           List Product
         </Heading>
-        <Button colorPalette="blue" size="sm">
+        <Button colorPalette="purple" size="sm">
           Add Product
         </Button>
       </HStack>

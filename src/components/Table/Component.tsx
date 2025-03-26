@@ -22,7 +22,7 @@ const Table = <T,>({ data, columns }: Props<T>) => {
     <ChakraTable.Root size={"md"} borderRadius={"sm"} overflow={"hidden"}>
       <ChakraTable.Header>
         {table.getHeaderGroups().map((headerGroup) => (
-          <ChakraTable.Row key={headerGroup.id} bgColor="blue.600">
+          <ChakraTable.Row key={headerGroup.id} bgColor="purple.500">
             {headerGroup.headers.map((header) => (
               <ChakraTable.ColumnHeader
                 key={header.id}
@@ -51,20 +51,39 @@ const Table = <T,>({ data, columns }: Props<T>) => {
         {table.getRowModel().rows.map((row, idx) => {
           const isOdd = idx % 2 === 0;
           return (
-            <ChakraTable.Row key={row.id} bgColor={isOdd ? "gray.50" : "white"}>
+            <ChakraTable.Row
+              key={row.id}
+              bg={isOdd ? "gray.100" : "white"}
+              _dark={{ bg: isOdd ? "gray.700" : "gray.800" }}
+            >
               {row.getVisibleCells().map((cell) => (
                 <ChakraTable.Cell key={cell.id} px={10}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </ChakraTable.Cell>
               ))}
               <ChakraTable.Cell px={10}>
-                <IconButton size="xs" variant="ghost" aria-label="open menu">
+                <IconButton
+                  size="xs"
+                  variant="ghost"
+                  aria-label="open menu"
+                  colorPalette={"yellow"}
+                >
                   <MdOutlineEdit />
                 </IconButton>
-                <IconButton size="xs" variant="ghost" aria-label="open menu">
+                <IconButton
+                  size="xs"
+                  variant="ghost"
+                  aria-label="open menu"
+                  colorPalette={"green"}
+                >
                   <FaEye />
                 </IconButton>
-                <IconButton size="xs" variant="ghost" aria-label="open menu">
+                <IconButton
+                  size="xs"
+                  variant="ghost"
+                  aria-label="open menu"
+                  colorPalette={"red"}
+                >
                   <LuTrash2 />
                 </IconButton>
               </ChakraTable.Cell>
