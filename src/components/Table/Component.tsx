@@ -4,6 +4,8 @@ import { Table as ChakraTable, IconButton } from "@chakra-ui/react";
 import {
   flexRender,
   getCoreRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { LuTrash2 } from "react-icons/lu";
@@ -16,6 +18,8 @@ const Table = <T,>({ data, columns }: Props<T>) => {
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
   });
 
   return (
@@ -53,8 +57,8 @@ const Table = <T,>({ data, columns }: Props<T>) => {
           return (
             <ChakraTable.Row
               key={row.id}
-              bg={isOdd ? "gray.100" : "white"}
-              _dark={{ bg: isOdd ? "gray.700" : "gray.800" }}
+              bg={isOdd ? "slate.100" : "white"}
+              _dark={{ bg: isOdd ? "slate.700" : "slate.800" }}
             >
               {row.getVisibleCells().map((cell) => (
                 <ChakraTable.Cell key={cell.id} px={10}>

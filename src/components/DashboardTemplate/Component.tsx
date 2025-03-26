@@ -52,13 +52,13 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       transition="3s ease"
       bg={"white"}
       borderRight="1px"
-      borderRightColor={"gray.500"}
+      borderRightColor={"slate.500"}
       w={{ base: "full", md: 60 }}
       pos="fixed"
       h="full"
       _dark={{
-        bg: "gray.700",
-        borderRightColor: "gray.50",
+        bg: "slate.700",
+        borderRightColor: "slate.50",
       }}
       {...rest}
     >
@@ -88,6 +88,10 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
         align="center"
         cursor="pointer"
         borderRadius="lg"
+        color={"slate.500"}
+        _dark={{
+          color: "slate.50",
+        }}
         _hover={{
           bg: useColorModeValue("purple.500", "purple.500"),
           color: "white",
