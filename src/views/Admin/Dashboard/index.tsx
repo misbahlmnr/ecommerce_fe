@@ -1,80 +1,58 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import Table from "@/components/Table";
 import { Heading, HStack, Stack, Button } from "@chakra-ui/react";
+import { mockDataTable } from "@/shared/Constant";
+import { ColumnDef } from "@tanstack/react-table";
+
+type Product = {
+  id: number;
+  name: string;
+  price: number;
+  description: string;
+  image: string;
+};
 
 const DashboardPage = () => {
-  const columns = [
-    {
-      accessorKey: "id",
-      header: "ID",
-    },
-    {
-      accessorKey: "name",
-      header: "Name",
-    },
-    {
-      accessorKey: "price",
-      header: "Price",
-    },
-    {
-      accessorKey: "description",
-      header: "Description",
-    },
-  ];
+  const columns = useMemo<ColumnDef<Product, any>[]>(
+    () => [
+      {
+        accessorKey: "id",
+        header: "Id",
+        cell: (props) => props.getValue(),
+      },
+      {
+        accessorKey: "name",
+        header: "Name",
+        cell: (props) => props.getValue(),
+      },
+      {
+        accessorKey: "price",
+        header: "Price",
+        cell: (props) => props.getValue(),
+      },
+      {
+        accessorKey: "description",
+        header: "Description",
+        cell: (props) => props.getValue(),
+      },
+    ],
+    []
+  );
 
-  const items = [
-    {
-      id: "1",
-      name: "Laptop",
-      price: 999.99,
-      description:
-        "Powerful laptop with high-performance specs for work and gaming.",
-      image:
-        "https://media.licdn.com/dms/image/v2/D5603AQEz_CL0M7Q_RQ/profile-displayphoto-shrink_800_800/B56ZQLj.DNG8Ag-/0/1735360768110?e=1747872000&v=beta&t=PvrqdphDeYHVZIgNDvu0ePlD8XHDm9aE_WsqMkQw3CE",
-    },
-    {
-      id: "2",
-      name: "Coffee Maker",
-      price: 49.99,
-      description:
-        "Brew the perfect cup of coffee with this easy-to-use coffee maker.",
-      image:
-        "https://media.licdn.com/dms/image/v2/D5603AQEz_CL0M7Q_RQ/profile-displayphoto-shrink_800_800/B56ZQLj.DNG8Ag-/0/1735360768110?e=1747872000&v=beta&t=PvrqdphDeYHVZIgNDvu0ePlD8XHDm9aE_WsqMkQw3CE",
-    },
-    {
-      id: "3",
-      name: "Desk Chair",
-      price: 150.0,
-      description:
-        "Ergonomic desk chair designed for maximum comfort and support.",
-      image:
-        "https://media.licdn.com/dms/image/v2/D5603AQEz_CL0M7Q_RQ/profile-displayphoto-shrink_800_800/B56ZQLj.DNG8Ag-/0/1735360768110?e=1747872000&v=beta&t=PvrqdphDeYHVZIgNDvu0ePlD8XHDm9aE_WsqMkQw3CE",
-    },
-    {
-      id: "4",
-      name: "Smartphone",
-      price: 799.99,
-      description:
-        "Latest smartphone with cutting-edge features and a sleek design.",
-      image:
-        "https://media.licdn.com/dms/image/v2/D5603AQEz_CL0M7Q_RQ/profile-displayphoto-shrink_800_800/B56ZQLj.DNG8Ag-/0/1735360768110?e=1747872000&v=beta&t=PvrqdphDeYHVZIgNDvu0ePlD8XHDm9aE_WsqMkQw3CE",
-    },
-    {
-      id: "5",
-      name: "Headphones",
-      price: 199.99,
-      description:
-        "High-quality wireless headphones with noise-canceling technology.",
-      image:
-        "https://media.licdn.com/dms/image/v2/D5603AQEz_CL0M7Q_RQ/profile-displayphoto-shrink_800_800/B56ZQLj.DNG8Ag-/0/1735360768110?e=1747872000&v=beta&t=PvrqdphDeYHVZIgNDvu0ePlD8XHDm9aE_WsqMkQw3CE",
-    },
-  ];
+  const [data] = useState<Product[]>(mockDataTable);
 
   return (
     <Stack p={5}>
       <HStack justifyContent="space-between" alignItems="center" mb="5">
-        <Heading as="h1" fontSize="2xl">
+        <Heading
+          as="h1"
+          fontSize="2xl"
+          fontWeight="bold"
+          color="slate.700"
+          _dark={{ color: "slate.50" }}
+        >
           List Product
         </Heading>
         <Button colorPalette="purple" size="sm">
@@ -82,7 +60,7 @@ const DashboardPage = () => {
         </Button>
       </HStack>
 
-      <Table data={items} columns={columns} />
+      <Table data={data} columns={columns} />
     </Stack>
   );
 };
