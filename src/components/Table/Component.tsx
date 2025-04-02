@@ -43,7 +43,7 @@ const Table = <T,>({ data, columns }: Props<T>) => {
 
   return (
     <>
-      <HStack justify={"space-between"}>
+      <HStack justify={"space-between"} mb={3}>
         <NativeSelect.Root
           key={"xs"}
           size={"md"}

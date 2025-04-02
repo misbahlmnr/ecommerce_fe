@@ -68,34 +68,44 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         </Text>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
-      {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
-          {link.name}
-        </NavItem>
-      ))}
+      <VStack p={5} gap={3}>
+        {LinkItems.map((link) => (
+          <NavItem key={link.name} icon={link.icon}>
+            {link.name}
+          </NavItem>
+        ))}
+      </VStack>
     </Box>
   );
 };
 
 const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
   return (
-    <Link as={NextLink} href="#" w={"100%"} style={{ textDecoration: "none" }}>
+    <Link
+      as={NextLink}
+      href="#"
+      w={"100%"}
+      p={2}
+      borderRadius="lg"
+      color={"slate.500"}
+      textDecoration={"none"}
+      _dark={{
+        color: "slate.50",
+      }}
+      _hover={{
+        bg: useColorModeValue("purple.500", "purple.500"),
+        color: "white",
+      }}
+      _focus={{
+        outlineColor: "purple.500",
+      }}
+    >
       <Flex
-        p="3"
         mx="4"
         w="full"
         role="group"
         align="center"
         cursor="pointer"
-        borderRadius="lg"
-        color={"slate.500"}
-        _dark={{
-          color: "slate.50",
-        }}
-        _hover={{
-          bg: useColorModeValue("purple.500", "purple.500"),
-          color: "white",
-        }}
         {...rest}
       >
         {icon && (
