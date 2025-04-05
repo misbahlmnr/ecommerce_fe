@@ -5,6 +5,7 @@ import Table from "@/components/Table";
 import { Heading, HStack, Stack, Button } from "@chakra-ui/react";
 import { mockDataTable } from "@/shared/Constant";
 import { ColumnDef } from "@tanstack/react-table";
+import { FormAddProduct } from "@/components/FormProduct";
 
 type Product = {
   id: number;
@@ -15,6 +16,8 @@ type Product = {
 };
 
 const DashboardPage = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   const columns = useMemo<ColumnDef<Product, any>[]>(
     () => [
       {
@@ -55,12 +58,18 @@ const DashboardPage = () => {
         >
           List Product
         </Heading>
-        <Button colorPalette="purple" size="sm">
+        <Button
+          colorPalette="purple"
+          size="sm"
+          onClick={() => setIsOpen(!isOpen)}
+        >
           Add Product
         </Button>
       </HStack>
 
       <Table data={data} columns={columns} />
+
+      <FormAddProduct isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </Stack>
   );
 };
