@@ -26,7 +26,7 @@ import { Props } from "./Types";
 import SearchInput from "./SearchInput";
 import { useState } from "react";
 
-const Table = <T,>({ data, columns }: Props<T>) => {
+const Table = <T,>({ data, columns, onEdit, onView, onDelete }: Props<T>) => {
   const [columnFilters, setColumnFilters] = useState([]);
 
   const table = useReactTable({
@@ -106,13 +106,15 @@ const Table = <T,>({ data, columns }: Props<T>) => {
                   )}
                 </ChakraTable.ColumnHeader>
               ))}
-              <ChakraTable.ColumnHeader
-                px={10}
-                color={"white"}
-                minWidth={"100px"}
-              >
-                Actions
-              </ChakraTable.ColumnHeader>
+              {(onEdit || onView || onDelete) && (
+                <ChakraTable.ColumnHeader
+                  px={10}
+                  color={"white"}
+                  minWidth={"100px"}
+                >
+                  Actions
+                </ChakraTable.ColumnHeader>
+              )}
             </ChakraTable.Row>
           ))}
         </ChakraTable.Header>
@@ -135,30 +137,39 @@ const Table = <T,>({ data, columns }: Props<T>) => {
                     </ChakraTable.Cell>
                   ))}
                   <ChakraTable.Cell>
-                    <IconButton
-                      size="xs"
-                      variant="ghost"
-                      aria-label="edit item"
-                      colorPalette="yellow"
-                    >
-                      <MdOutlineEdit />
-                    </IconButton>
-                    <IconButton
-                      size="xs"
-                      variant="ghost"
-                      aria-label="view item"
-                      colorPalette="green"
-                    >
-                      <FaEye />
-                    </IconButton>
-                    <IconButton
-                      size="xs"
-                      variant="ghost"
-                      aria-label="delete item"
-                      colorPalette="red"
-                    >
-                      <LuTrash2 />
-                    </IconButton>
+                    {onEdit && (
+                      <IconButton
+                        size="xs"
+                        variant="ghost"
+                        aria-label="edit item"
+                        colorPalette="yellow"
+                        onClick={onEdit}
+                      >
+                        <MdOutlineEdit />
+                      </IconButton>
+                    )}
+                    {onView && (
+                      <IconButton
+                        size="xs"
+                        variant="ghost"
+                        aria-label="view item"
+                        colorPalette="green"
+                        onClick={onView}
+                      >
+                        <FaEye />
+                      </IconButton>
+                    )}
+                    {onDelete && (
+                      <IconButton
+                        size="xs"
+                        variant="ghost"
+                        aria-label="delete item"
+                        colorPalette="red"
+                        onClick={() => {}}
+                      >
+                        <LuTrash2 />
+                      </IconButton>
+                    )}
                   </ChakraTable.Cell>
                 </ChakraTable.Row>
               );
