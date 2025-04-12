@@ -1,13 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import {
-  ButtonGroup,
   Table as ChakraTable,
   NativeSelect,
   HStack,
   Icon,
   IconButton,
-  Pagination,
   Stack,
 } from "@chakra-ui/react";
 import {
@@ -21,10 +20,9 @@ import {
 import { LuTrash2 } from "react-icons/lu";
 import { MdOutlineEdit } from "react-icons/md";
 import { FaEye, FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
-import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
-import { Props } from "./Types";
 import SearchInput from "./SearchInput";
-import { useState } from "react";
+import Pagination from "./Pagination";
+import { Props } from "./Types";
 
 const Table = <T,>({ data, columns, onEdit, onView, onDelete }: Props<T>) => {
   const [columnFilters, setColumnFilters] = useState([]);
@@ -143,7 +141,7 @@ const Table = <T,>({ data, columns, onEdit, onView, onDelete }: Props<T>) => {
                         variant="ghost"
                         aria-label="edit item"
                         colorPalette="yellow"
-                        onClick={onEdit}
+                        onClick={() => onEdit(row.original)}
                       >
                         <MdOutlineEdit />
                       </IconButton>
@@ -154,7 +152,7 @@ const Table = <T,>({ data, columns, onEdit, onView, onDelete }: Props<T>) => {
                         variant="ghost"
                         aria-label="view item"
                         colorPalette="green"
-                        onClick={onView}
+                        onClick={() => onView(row.original)}
                       >
                         <FaEye />
                       </IconButton>
@@ -184,54 +182,9 @@ const Table = <T,>({ data, columns, onEdit, onView, onDelete }: Props<T>) => {
         </ChakraTable.Body>
       </ChakraTable.Root>
 
+      {/* Pagination */}
       <Stack display="flex" alignItems="flex-end" px="5" py="2">
-        <Pagination.Root
-          pageSize={1}
-          count={table.getPageCount()}
-          page={table.getState().pagination.pageIndex + 1}
-        >
-          <ButtonGroup variant="ghost" size="xs" wrap="wrap">
-            {/* Previous Page Button */}
-            <Pagination.PrevTrigger asChild>
-              <IconButton
-                onClick={() => table.previousPage()}
-                disabled={!table.getCanPreviousPage()}
-              >
-                <LuChevronLeft />
-              </IconButton>
-            </Pagination.PrevTrigger>
-
-            {/* Pagination Items (Page Numbers) */}
-            <Pagination.Items
-              render={(page) => {
-                const isActive =
-                  table.getState().pagination.pageIndex + 1 === page.value;
-                return (
-                  <IconButton
-                    onClick={() => table.setPageIndex(page.value - 1)}
-                    colorPalette={isActive ? "purple" : "gray"}
-                    variant={{
-                      base: "ghost",
-                      _selected: isActive ? "outline" : "ghost",
-                    }}
-                  >
-                    {page.value}
-                  </IconButton>
-                );
-              }}
-            />
-
-            {/* Next Page Button */}
-            <Pagination.NextTrigger asChild>
-              <IconButton
-                onClick={() => table.nextPage()}
-                disabled={!table.getCanNextPage()}
-              >
-                <LuChevronRight />
-              </IconButton>
-            </Pagination.NextTrigger>
-          </ButtonGroup>
-        </Pagination.Root>
+        <Pagination table={table} />
       </Stack>
     </>
   );
