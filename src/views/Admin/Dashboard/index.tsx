@@ -6,6 +6,7 @@ import { Heading, HStack, Stack, Button } from "@chakra-ui/react";
 import { mockDataTable } from "@/shared/Constant";
 import { ColumnDef } from "@tanstack/react-table";
 import { FormAddProduct } from "@/components/FormProduct";
+import useModalState from "@/shared/Hooks/useModalState";
 
 type Product = {
   id: number;
@@ -16,7 +17,8 @@ type Product = {
 };
 
 const DashboardPage = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { isOpen, onOpen, onClose } = useModalState();
+  const [mode, setMode] = useState<"add" | "edit" | "view">("add");
 
   const columns = useMemo<ColumnDef<Product, any>[]>(
     () => [
@@ -46,6 +48,21 @@ const DashboardPage = () => {
 
   const [data] = useState<Product[]>(mockDataTable);
 
+  const handleAdd = () => {
+    setMode("add");
+    onOpen();
+  };
+
+  const handleEdit = () => {
+    setMode("edit");
+    onOpen();
+  };
+
+  const handleView = () => {
+    setMode("view");
+    onOpen();
+  };
+
   return (
     <Stack p={5}>
       <HStack justifyContent="space-between" alignItems="center" mb="5">
@@ -58,18 +75,20 @@ const DashboardPage = () => {
         >
           List Product
         </Heading>
-        <Button
-          colorPalette="purple"
-          size="sm"
-          onClick={() => setIsOpen(!isOpen)}
-        >
+        <Button colorPalette="purple" size="sm" onClick={handleAdd}>
           Add Product
         </Button>
       </HStack>
 
-      <Table data={data} columns={columns} />
+      <Table
+        data={data}
+        columns={columns}
+        onEdit={handleEdit}
+        onView={handleView}
+        onDelete={() => {}}
+      />
 
-      <FormAddProduct isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <FormAddProduct isOpen={isOpen} onClose={onClose} mode={mode} />
     </Stack>
   );
 };
