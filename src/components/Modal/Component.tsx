@@ -4,10 +4,16 @@ import { CloseButton, Dialog, Portal } from "@chakra-ui/react";
 import { Props } from "./Types";
 
 const Modal = (props: Props) => {
-  const { children, isOpen, onClose } = props;
+  const { children, isOpen, onClose, role = "dialog" } = props;
 
   return (
-    <Dialog.Root lazyMount open={isOpen} onOpenChange={onClose} size={"lg"}>
+    <Dialog.Root
+      lazyMount
+      open={isOpen}
+      onOpenChange={onClose}
+      size={"lg"}
+      role={role}
+    >
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>
